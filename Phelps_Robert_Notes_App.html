@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes Application</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900">
+        <div id="app" class="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
+            <h1 class="text-2xl font-bold mb-4 text-center">Notes</h1>
+            <input v-model="newNote" type="text" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter a new note">
+            <button @click="addNote" class="w-full bg-pink-500 text-white p-2 rounded-lg hover:bg-pink-600">Add Note</button>
+            <ul class="mt-4">
+                <li v-for="(note, index) in notes" :key="index" class="flex items-center justify-between p-2 border-b border-gray-300">
+                    <span>{{ note }}</span>
+                    <button @click="deleteNote(index)" class="bg-green-500 text-white hover:bg-green-600 p-2 rounded-lg">Delete</button>
+                </li>
+            </ul>
+        </div>
+
+  <script>
+    Vue.createApp({
+        data() {
+            return {
+                newNote: '',
+                notes: []
+            }
+        },
+        methods: {
+                addNote() {
+                    if (this.newNote.trim() !== '') {
+                        this.notes.push(this.newNote.trim());
+                        this.newNote = '';
+                    }
+                },
+            deleteNote(index) {
+                    this.notes.splice(index, 1);
+                },
+            }
+    }).mount('#app');
+  </script>
+</body>
+</html>
